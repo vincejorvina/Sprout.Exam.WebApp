@@ -2,11 +2,14 @@
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Sprout.Exam.Business.DataTransferObjects;
 using Sprout.Exam.WebApp.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Sprout.Exam.WebApp.Data
 {
@@ -17,5 +20,12 @@ namespace Sprout.Exam.WebApp.Data
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
+
+        public DbSet<EmployeeDto> Employee { get; set; }
+
+        //protected override void OnModelCreating(ModelBuilder builder)
+        //{
+        //    builder.Entity<EmployeeDto>().ToTable("Employee").HasNoKey();
+        //}
     }
 }

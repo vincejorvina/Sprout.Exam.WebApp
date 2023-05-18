@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Sprout.Exam.Business.DataTransferObjects;
 using Sprout.Exam.Common.Enums;
+using Sprout.Exam.WebApp.Data;
+using Microsoft.EntityFrameworkCore;
+using System.Data;
+using Microsoft.Data.SqlClient;
 
 namespace Sprout.Exam.WebApp.Controllers
 {
@@ -15,6 +19,12 @@ namespace Sprout.Exam.WebApp.Controllers
     [ApiController]
     public class EmployeesController : ControllerBase
     {
+        private readonly ApplicationDbContext _context;
+
+        public EmployeesController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
 
         /// <summary>
         /// Refactor this method to go through proper layers and fetch from the DB.
@@ -23,7 +33,8 @@ namespace Sprout.Exam.WebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var result = await Task.FromResult(StaticEmployees.ResultList);
+            // result = await Task.FromResult(StaticEmployees.ResultList);
+            var result = await Task.FromResult(_context.Employee);
             return Ok(result);
         }
 
@@ -34,7 +45,7 @@ namespace Sprout.Exam.WebApp.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var result = await Task.FromResult(StaticEmployees.ResultList.FirstOrDefault(m => m.Id == id));
+            var result = await Task.FromResult(_context.Employee.FirstOrDefault(m => m.Id == id));
             return Ok(result);
         }
 
@@ -49,7 +60,7 @@ namespace Sprout.Exam.WebApp.Controllers
             if (item == null) return NotFound();
             item.FullName = input.FullName;
             item.Tin = input.Tin;
-            item.Birthdate = input.Birthdate.ToString("yyyy-MM-dd");
+            item.Birthdate = input.Birthdate;
             item.TypeId = input.TypeId;
             return Ok(item);
         }
@@ -66,7 +77,7 @@ namespace Sprout.Exam.WebApp.Controllers
 
             StaticEmployees.ResultList.Add(new EmployeeDto
             {
-                Birthdate = input.Birthdate.ToString("yyyy-MM-dd"),
+                Birthdate = input.Birthdate,
                 FullName = input.FullName,
                 Id = id,
                 Tin = input.Tin,

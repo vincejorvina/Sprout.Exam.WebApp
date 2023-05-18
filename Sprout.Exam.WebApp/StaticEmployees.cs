@@ -12,7 +12,7 @@ namespace Sprout.Exam.WebApp
         {
             new EmployeeDto
             {
-                Birthdate = "1993-03-25",
+                Birthdate = new DateTime(1993,03,25),
                 FullName = "Jane Doe",
                 Id = 1,
                 Tin = "123215413",
@@ -20,7 +20,7 @@ namespace Sprout.Exam.WebApp
             },
             new EmployeeDto
             {
-                Birthdate = "1993-05-28",
+                Birthdate = new DateTime(1993,05,28),
                 FullName = "John Doe",
                 Id = 2,
                 Tin = "957125412",
