@@ -36,7 +36,7 @@ export class EmployeeCalculate extends Component {
 
 <div className='form-row'>
 <div className='form-group col-md-12'>
-  <label >Birthdate: <b>{this.state.birthdate}</b></label>
+  <label >Birthdate: <b>{new Date(this.state.birthdate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</b></label>
 </div>
 </div>
 

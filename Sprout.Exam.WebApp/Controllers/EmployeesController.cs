@@ -33,8 +33,16 @@ namespace Sprout.Exam.WebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            // result = await Task.FromResult(StaticEmployees.ResultList);
-            var result = await Task.FromResult(_context.Employee.Where(b => !b.IsDeleted));
+            var result = await Task.FromResult(_context.Employee.Where(m => !m.IsDeleted));
+            //var converted = result.Select(e => new
+            //{
+            //    Id = e.Id.ToString(),
+            //    FullName = e.FullName.ToString(),
+            //    Birthdate = e.Birthdate.ToString("yyyy-MM-dd"),
+            //    Tin = e.Tin.ToString(),
+            //    TypeId = e.TypeId,
+            //    IsDeleted = e.IsDeleted
+            //}); ;
             return Ok(result);
         }
 

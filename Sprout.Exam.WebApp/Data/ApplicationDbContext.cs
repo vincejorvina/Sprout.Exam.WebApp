@@ -1,4 +1,5 @@
-﻿using IdentityServer4.EntityFramework.Options;
+﻿using IdentityModel;
+using IdentityServer4.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -22,10 +23,5 @@ namespace Sprout.Exam.WebApp.Data
         }
 
         public DbSet<EmployeeDto> Employee { get; set; }
-
-        //protected override void OnModelCreating(ModelBuilder builder)
-        //{
-        //    builder.Entity<EmployeeDto>().ToTable("Employee").HasNoKey();
-        //}
     }
 }

@@ -29,7 +29,7 @@ export class EmployeesIndex extends Component {
           {employees.map(employee =>
             <tr key={employee.id}>
               <td>{employee.fullName}</td>
-              <td>{employee.birthdate}</td>
+              <td>{new Date(employee.birthdate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</td>
               <td>{employee.tin}</td>
               <td>{employee.typeId === 1?"Regular":"Contractual"}</td>
               <td>
