@@ -14,5 +14,6 @@ namespace Sprout.Exam.Business.DataTransferObjects
         public string Tin { get; set; }
         [Column("EmployeeTypeId")]
         public int TypeId { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

@@ -34,7 +34,7 @@ namespace Sprout.Exam.WebApp.Controllers
         public async Task<IActionResult> Get()
         {
             // result = await Task.FromResult(StaticEmployees.ResultList);
-            var result = await Task.FromResult(_context.Employee);
+            var result = await Task.FromResult(_context.Employee.Where(b => !b.IsDeleted));
             return Ok(result);
         }
 
@@ -103,12 +103,24 @@ namespace Sprout.Exam.WebApp.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
+            var item = await Task.FromResult(_context.Employee.FirstOrDefault(m => m.Id == id));
+            if (item == null) return NotFound();
+            item.IsDeleted = true;
+            _context.Update(item);
+            await _context.SaveChangesAsync();
+            return Ok(item);
+        }
+        /* HARD DELETE
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
             var result = await Task.FromResult(_context.Employee.FirstOrDefault(m => m.Id == id));
             if (result == null) return NotFound();
             _context.Remove<EmployeeDto>(result);
             await _context.SaveChangesAsync();
             return Ok(id);
         }
+        */
 
 
 
@@ -122,8 +134,9 @@ namespace Sprout.Exam.WebApp.Controllers
         [HttpPost("{id}/calculate")]
         public async Task<IActionResult> Calculate(int id,decimal absentDays,decimal workedDays)
         {
-            var result = await Task.FromResult(StaticEmployees.ResultList.FirstOrDefault(m => m.Id == id));
-
+            // var result = await Task.FromResult(StaticEmployees.ResultList.FirstOrDefault(m => m.Id == id));
+            var result = await Task.FromResult(_context.Employee.FirstOrDefault(m => m.Id == id));
+            
             if (result == null) return NotFound();
             var type = (EmployeeType) result.TypeId;
             return type switch
