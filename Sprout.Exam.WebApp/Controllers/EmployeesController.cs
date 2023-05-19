@@ -73,16 +73,24 @@ namespace Sprout.Exam.WebApp.Controllers
         public async Task<IActionResult> Post(CreateEmployeeDto input)
         {
 
-           var id = await Task.FromResult(StaticEmployees.ResultList.Max(m => m.Id) + 1);
-
-            StaticEmployees.ResultList.Add(new EmployeeDto
+            var id = await Task.FromResult(_context.Employee.Max(m => m.Id) + 1);
+            _context.Add<EmployeeDto>(new EmployeeDto
             {
                 Birthdate = input.Birthdate,
                 FullName = input.FullName,
-                Id = id,
+                // Id = id,
                 Tin = input.Tin,
                 TypeId = input.TypeId
             });
+            await _context.SaveChangesAsync();
+            //StaticEmployees.ResultList.Add(new EmployeeDto
+            //{
+            //    Birthdate = input.Birthdate,
+            //    FullName = input.FullName,
+            //    Id = id,
+            //    Tin = input.Tin,
+            //    TypeId = input.TypeId
+            //});
 
             return Created($"/api/employees/{id}", id);
         }
