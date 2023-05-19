@@ -56,12 +56,14 @@ namespace Sprout.Exam.WebApp.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(EditEmployeeDto input)
         {
-            var item = await Task.FromResult(StaticEmployees.ResultList.FirstOrDefault(m => m.Id == input.Id));
+            var item = await Task.FromResult(_context.Employee.FirstOrDefault(m => m.Id == input.Id));
             if (item == null) return NotFound();
             item.FullName = input.FullName;
             item.Tin = input.Tin;
             item.Birthdate = input.Birthdate;
             item.TypeId = input.TypeId;
+            _context.Update(item);
+            await _context.SaveChangesAsync();
             return Ok(item);
         }
 
@@ -72,13 +74,11 @@ namespace Sprout.Exam.WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(CreateEmployeeDto input)
         {
-
             var id = await Task.FromResult(_context.Employee.Max(m => m.Id) + 1);
             _context.Add<EmployeeDto>(new EmployeeDto
             {
                 Birthdate = input.Birthdate,
                 FullName = input.FullName,
-                // Id = id,
                 Tin = input.Tin,
                 TypeId = input.TypeId
             });
@@ -103,9 +103,10 @@ namespace Sprout.Exam.WebApp.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await Task.FromResult(StaticEmployees.ResultList.FirstOrDefault(m => m.Id == id));
+            var result = await Task.FromResult(_context.Employee.FirstOrDefault(m => m.Id == id));
             if (result == null) return NotFound();
-            StaticEmployees.ResultList.RemoveAll(m => m.Id == id);
+            _context.Remove<EmployeeDto>(result);
+            await _context.SaveChangesAsync();
             return Ok(id);
         }
 
