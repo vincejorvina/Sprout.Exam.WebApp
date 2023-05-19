@@ -103,7 +103,6 @@ namespace Sprout.Exam.WebApp.Controllers
             return Created($"/api/employees/{id}", id);
         }
 
-
         /// <summary>
         /// Refactor this method to go through proper layers and perform soft deletion of an employee to the DB.
         /// </summary>
@@ -130,8 +129,6 @@ namespace Sprout.Exam.WebApp.Controllers
         }
         */
 
-
-
         /// <summary>
         /// Refactor this method to go through proper layers and use Factory pattern
         /// </summary>
@@ -140,7 +137,6 @@ namespace Sprout.Exam.WebApp.Controllers
         /// <param name="workedDays"></param>
         /// <returns></returns>
         [HttpPost("{id}/calculate")]
-        //public async Task<IActionResult> Calculate(int id, decimal absentDays, decimal workedDays)
         public async Task<IActionResult> Calculate(int id, [FromBody] Salary r)
         {
             var result = await Task.FromResult(_context.Employee.FirstOrDefault(m => m.Id == id));

@@ -7,7 +7,6 @@ namespace Sprout.Exam.Common.Enums
     public enum EmployeeType
     {
         Regular = 1,
-        Contractual = 2,
-        Placeholder = 3
+        Contractual = 2
     }
 }
