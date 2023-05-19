@@ -140,21 +140,18 @@ namespace Sprout.Exam.WebApp.Controllers
         /// <param name="workedDays"></param>
         /// <returns></returns>
         [HttpPost("{id}/calculate")]
-        public async Task<IActionResult> Calculate(int id,decimal absentDays,decimal workedDays)
+        //public async Task<IActionResult> Calculate(int id, decimal absentDays, decimal workedDays)
+        public async Task<IActionResult> Calculate(int id, [FromBody] Salary r)
         {
-            // var result = await Task.FromResult(StaticEmployees.ResultList.FirstOrDefault(m => m.Id == id));
             var result = await Task.FromResult(_context.Employee.FirstOrDefault(m => m.Id == id));
-            
             if (result == null) return NotFound();
             var type = (EmployeeType) result.TypeId;
             return type switch
             {
-                EmployeeType.Regular =>
-                    //create computation for regular.
-                    Ok(25000),
+                EmployeeType.Regular => 
+                    Ok(new Salary.Regular().Compute(r.AbsentDays)),
                 EmployeeType.Contractual =>
-                    //create computation for contractual.
-                    Ok(20000),
+                    Ok(new Salary.Contractual().Compute(r.WorkedDays)),
                 _ => NotFound("Employee Type not found")
             };
 
