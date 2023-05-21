@@ -20,7 +20,8 @@ namespace Sprout.Exam.WebApp
             const decimal WORKING_DAYS = 22;
             public decimal Compute(decimal absentDays)
             {
-                return Math.Round(REGULAR_SALARY - (absentDays * (REGULAR_SALARY / WORKING_DAYS)) - (REGULAR_SALARY * TAX_DEDUCTION), 2);
+                var result = Math.Round(REGULAR_SALARY - (absentDays * (REGULAR_SALARY / WORKING_DAYS)) - (REGULAR_SALARY * TAX_DEDUCTION), 2);
+                return result;
             }
         }
         public class Contractual : Calculation
@@ -28,10 +29,9 @@ namespace Sprout.Exam.WebApp
             const decimal CONTRACTUAL_SALARY = 500;
             public decimal Compute(decimal workedDays)
             {
-                return Math.Round(CONTRACTUAL_SALARY * workedDays, 2);
+                var result = Math.Round(CONTRACTUAL_SALARY * workedDays, 2);
+                return result;
             }
         }
     }
-
-
 }

@@ -6,7 +6,8 @@ export class EmployeeCreate extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { fullName: '',birthdate: '',tin: '',typeId: 1, loading: false,loadingSave:false };
+    const currentDate = new Date().toISOString().split('T')[0];
+    this.state = { fullName: '',birthdate: currentDate,tin: '',typeId: 1, loading: false,loadingSave:false };
   }
 
   componentDidMount() {
@@ -24,7 +25,6 @@ export class EmployeeCreate extends Component {
   }
 
   render() {
-
     let contents = this.state.loading
     ? <p><em>Loading...</em></p>
     : <div>

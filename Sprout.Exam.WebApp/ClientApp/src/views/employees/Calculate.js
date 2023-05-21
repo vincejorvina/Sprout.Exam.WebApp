@@ -85,7 +85,7 @@ export class EmployeeCalculate extends Component {
 
 <div className="form-row">
 <div className='form-group col-md-12'>
-  <label>Net Income: <b>{this.state.netIncome}</b></label>
+  <label>Net Income: <b>{this.state.netIncome.toLocaleString(undefined, { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</b></label>
 </div>
 </div>
 
@@ -133,5 +133,4 @@ export class EmployeeCalculate extends Component {
         this.setState({ loading: false,loadingCalculate: false });
     }
   }
-  
 }
