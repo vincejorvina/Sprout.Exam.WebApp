@@ -17,9 +17,10 @@ namespace Sprout.Exam.WebApp
         {
             const decimal REGULAR_SALARY = 20000;
             const decimal TAX_DEDUCTION = 0.12M;
+            const decimal WORKING_DAYS = 22;
             public decimal Compute(decimal absentDays)
             {
-                return Math.Round(REGULAR_SALARY - (absentDays * (REGULAR_SALARY / 22)) - (REGULAR_SALARY * TAX_DEDUCTION), 2);
+                return Math.Round(REGULAR_SALARY - (absentDays * (REGULAR_SALARY / WORKING_DAYS)) - (REGULAR_SALARY * TAX_DEDUCTION), 2);
             }
         }
         public class Contractual : Calculation

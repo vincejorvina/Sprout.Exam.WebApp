@@ -18,7 +18,16 @@ export class EmployeeCalculate extends Component {
 
   handleSubmit(e){
       e.preventDefault();
-      this.calculateSalary();
+      if (this.state.absentDays >= 0 && this.state.workedDays >= 0)  {
+        this.calculateSalary();
+      } else {
+        if (this.state.absentDays < 0) {
+          alert('Absent days cannot be negative');
+        }
+        if (this.state.workedDays < 0) {
+          alert('Worked days cannot be negative');
+        }
+      }
   }
 
   render() {
@@ -65,11 +74,11 @@ export class EmployeeCalculate extends Component {
 { this.state.typeId === 1? 
 <div className='form-group col-md-6'>
   <label htmlFor='inputAbsentDays4'>Absent Days: </label>
-  <input type='text' className='form-control' id='inputAbsentDays4' onChange={this.handleChange.bind(this)} value={this.state.absentDays} name="absentDays" placeholder='Absent Days' />
+  <input type='number' min='0' max='31' className='form-control' id='inputAbsentDays4' onChange={this.handleChange.bind(this)} value={this.state.absentDays} name="absentDays" placeholder='Absent Days' />
 </div> :
 <div className='form-group col-md-6'>
   <label htmlFor='inputWorkDays4'>Worked Days: </label>
-  <input type='text' className='form-control' id='inputWorkDays4' onChange={this.handleChange.bind(this)} value={this.state.workedDays} name="workedDays" placeholder='Worked Days' />
+  <input type='number' min='0' max='31' className='form-control' id='inputWorkDays4' onChange={this.handleChange.bind(this)} value={this.state.workedDays} name="workedDays" placeholder='Worked Days' />
 </div>
 }
 </div>
@@ -124,4 +133,5 @@ export class EmployeeCalculate extends Component {
         this.setState({ loading: false,loadingCalculate: false });
     }
   }
+  
 }
