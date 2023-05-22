@@ -19,9 +19,16 @@ export class EmployeeCreate extends Component {
 
   handleSubmit(e){
       e.preventDefault();
-      if (window.confirm("Are you sure you want to save?")) {
-        this.saveEmployee();
-      } 
+      const regexTIN = /^[0-9\-]+$/;
+      if (regexTIN.test(this.state.tin)) {
+        if (window.confirm("Are you sure you want to save?")) {
+          this.saveEmployee();
+        } 
+      }
+      else {
+        alert("TIN can only contain numbers (0-9) and dashes (-).");
+      }
+      
   }
 
   render() {

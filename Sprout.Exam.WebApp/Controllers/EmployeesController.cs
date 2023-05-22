@@ -34,15 +34,6 @@ namespace Sprout.Exam.WebApp.Controllers
         public async Task<IActionResult> Get()
         {
             var result = await Task.FromResult(_context.Employee.Where(m => !m.IsDeleted));
-            //var converted = result.Select(e => new
-            //{
-            //    Id = e.Id.ToString(),
-            //    FullName = e.FullName.ToString(),
-            //    Birthdate = e.Birthdate.ToString("yyyy-MM-dd"),
-            //    Tin = e.Tin.ToString(),
-            //    TypeId = e.TypeId,
-            //    IsDeleted = e.IsDeleted
-            //}); ;
             return Ok(result);
         }
 
@@ -91,14 +82,6 @@ namespace Sprout.Exam.WebApp.Controllers
                 TypeId = input.TypeId
             });
             await _context.SaveChangesAsync();
-            //StaticEmployees.ResultList.Add(new EmployeeDto
-            //{
-            //    Birthdate = input.Birthdate,
-            //    FullName = input.FullName,
-            //    Id = id,
-            //    Tin = input.Tin,
-            //    TypeId = input.TypeId
-            //});
 
             return Created($"/api/employees/{id}", id);
         }
@@ -150,8 +133,6 @@ namespace Sprout.Exam.WebApp.Controllers
                     Ok(new Salary.Contractual().Compute(r.WorkedDays)),
                 _ => NotFound("Employee Type not found")
             };
-
         }
-
     }
 }
